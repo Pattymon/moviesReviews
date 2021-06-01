@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Review;
+use App\Models\Pelicula;
 use Illuminate\Http\Request;
 
-class ReviewController extends Controller
+class PeliculaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,8 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        $reviews = Review::all();
-        //$reviews = Review::where('idPelicula', '2')->get();
-        return view('review.reviewIndex', compact('reviews'));
+        $peliculas = Pelicula::get();
+        return view('pelicula.peliculaIndex', compact('peliculas'));
     }
 
     /**
@@ -26,7 +25,7 @@ class ReviewController extends Controller
      */
     public function create()
     {
-        return view('review.reviewForm');
+        return view('pelicula.peliculaForm');
     }
 
     /**
@@ -37,51 +36,54 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Pelicula::create($request->all());
+        return redirect()->route('pelicula.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Review  $review
+     * @param  \App\Models\Pelicula  $pelicula
      * @return \Illuminate\Http\Response
      */
-    public function show(Review $review)
+    public function show(Pelicula $pelicula)
     {
-        return view('review.reviewShow');
+        return view('pelicula.peliculaShow', compact('pelicula'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Review  $review
+     * @param  \App\Models\Pelicula  $pelicula
      * @return \Illuminate\Http\Response
      */
-    public function edit(Review $review)
+    public function edit(Pelicula $pelicula)
     {
-        return view('review.reviewForm');
+        return view('pelicula.peliculaForm', compact('pelicula'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Review  $review
+     * @param  \App\Models\Pelicula  $pelicula
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Review $review)
+    public function update(Request $request, Pelicula $pelicula)
     {
-        //
+        Pelicula::where('id', $pelicula->id)->update($request->except('_token', '_method'));
+        return redirect()->route('pelicula.show', $pelicula);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Review  $review
+     * @param  \App\Models\Pelicula  $pelicula
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Review $review)
+    public function destroy(Pelicula $pelicula)
     {
-        //
+        $pelicula->delete();
+        return redirect()->route('pelicula.index');
     }
 }

@@ -39,5 +39,37 @@ class PeliculasSeeder extends Seeder
             'fechaPublicacion' => '2021-05-23',
             'imagen' => 'https://es.web.img3.acsta.net/pictures/16/03/04/13/44/418557.jpg',
         ]);
+        Pelicula::create([
+            'nombre' => 'Enredados',
+            'duracion' => '130',
+            'year' => '2010',
+            'descripcion' => 'A una morra la secuestran de niña y la encierran en una torre, años después un bato que iba escapando de la policía la encuentra, se van de viaje y se casan.',
+            'fechaPublicacion' => '2021-06-01',
+            'imagen' => 'https://images-na.ssl-images-amazon.com/images/I/71-qC7IDkQL._AC_SY679_.jpg',
+        ]);
+        Pelicula::create([
+            'nombre' => '	Lluvia de hamburguesas',
+            'duracion' => '95',
+            'year' => '2009',
+            'descripcion' => 'Un bato hace una maquina que crea comida y por un error la manda a la atmosfera por lo que llueve comida.',
+            'fechaPublicacion' => '2021-05-31',
+            'imagen' => 'https://cafeanimelair2.files.wordpress.com/2014/10/lluvia-de-hamburguesas-1.jpg',
+        ]);
+        Pelicula::create([
+            'nombre' => 'La sirenita',
+            'duracion' => '85',
+            'year' => '1989',
+            'descripcion' => 'Una morra que es sirena se enamora de un humano y da su voz y su vida para ir detrás de él :/',
+            'fechaPublicacion' => '2021-05-31	',
+            'imagen' => 'https://i.pinimg.com/originals/57/f3/a7/57f3a7cb2f456c36bcfe04373f75f9b8.jpg',
+        ]);
+        Pelicula::create([
+            'nombre' => '	Las locuras del emperador',
+            'duracion' => '78',
+            'year' => '2000',
+            'descripcion' => 'Un emperado medio mamón es convertido en llama por su consejera malvada y un campesino lo ayuda a que vuelva a la normalidad y se haga buen pedo.',
+            'fechaPublicacion' => '2021-06-01',
+            'imagen' => 'https://i.pinimg.com/originals/42/60/d4/4260d4f6503a77ad0cd235eb9d1263ef.jpg',
+        ]);
     }
 }
