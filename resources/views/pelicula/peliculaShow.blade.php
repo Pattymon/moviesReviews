@@ -12,7 +12,7 @@
         </h4>
     </div>         
     <div class="flex justify-center p-2 bg-white rounded-lg shadow-xs dark:bg-gray-800 mt-4">
-        <img src="{{ $pelicula-> imagen }}" >
+        <img src="{{ $pelicula-> imagen }}"  width="400" class="justify-center">
     </div>
     <div class="flex items-center p-2 bg-white rounded-lg shadow-xs dark:bg-gray-800 mt-4">
         <div>
