@@ -12,6 +12,7 @@ class PeliculaController extends Controller
     private $rules;
 
     public function __construct(){
+        $this->middleware('auth')->except('peliculaIndex');
         $this->rules = [
             'duracion' => 'required|integer|min:2',
             'year' => 'required|integer|min:4',
@@ -27,16 +28,14 @@ class PeliculaController extends Controller
      */
     public function index()
     {
-        //$peliculas = Pelicula::get();
-        $peliculas = Auth::user()->peliculas()->get();
+        $peliculas = Pelicula::get();
         return view('pelicula.peliculaIndex', compact('peliculas'));
     }
 
     public function mispeliculas()
     {
         $peliculas = Auth::user()->peliculas()->get(); //listado de solo ese usuario 
-        //quiero ver como crear otra ruta aqui
-        return view('pelicula.peliculaIndex', compact('peliculas'));
+        return view('pelicula.peliculaMisPeliculas', compact('peliculas'));
     }
 
     /**

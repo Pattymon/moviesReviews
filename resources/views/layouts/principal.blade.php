@@ -20,6 +20,8 @@
       class="flex h-screen bg-gray-50 dark:bg-gray-900"
       :class="{ 'overflow-hidden': isSideMenuOpen}"
     >
+    @auth
+      
       <!-- Desktop sidebar -->
       @include('layouts.sidebar-desktop')
       
@@ -27,6 +29,8 @@
       <!-- Backdrop -->
       @include('layouts.sidebar-mobile')
 
+    @endauth
+      
       <div class="flex flex-col flex-1">
         <header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
           <div
@@ -96,8 +100,17 @@
               {{-- @include('layouts.notificaciones') --}}
 
               <!-- Profile menu -->
-              @include('layouts.menu-usuario')
+              @auth
+                  @include('layouts.menu-usuario')
+              @endauth
 
+              @guest
+                <a class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+                href="{{ route('login') }}"
+                >
+                  Ingresar
+                </a>
+              @endguest
             </ul>
           </div>
         </header>

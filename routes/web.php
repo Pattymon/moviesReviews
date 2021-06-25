@@ -27,7 +27,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::resource('review', ReviewController::class);
+Route::resource('review', ReviewController::class)->middleware('auth');
 
 Route::resource('pelicula', PeliculaController::class);
+Route::get('/mispeliculas', [PeliculaController::class, 'mispeliculas'])->middleware('auth');
 
