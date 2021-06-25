@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Pelicula;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class PeliculaController extends Controller
 {
@@ -25,7 +27,15 @@ class PeliculaController extends Controller
      */
     public function index()
     {
-        $peliculas = Pelicula::get();
+        //$peliculas = Pelicula::get();
+        $peliculas = Auth::user()->peliculas()->get();
+        return view('pelicula.peliculaIndex', compact('peliculas'));
+    }
+
+    public function mispeliculas()
+    {
+        $peliculas = Auth::user()->peliculas()->get(); //listado de solo ese usuario 
+        //quiero ver como crear otra ruta aqui
         return view('pelicula.peliculaIndex', compact('peliculas'));
     }
 
@@ -48,6 +58,8 @@ class PeliculaController extends Controller
     public function store(Request $request)
     {
         $request->validate($this->rules + ['nombre' => 'required|string|min:2|max:255|unique:App\Models\Pelicula,nombre']);
+
+        $request->merge(['user_id' => Auth::id()]);
 
         Pelicula::create($request->all());
         return redirect()->route('pelicula.index');

@@ -20,6 +20,7 @@ class CreatePeliculasTable extends Migration
             $table->integer('year');
             $table->text('descripcion');
             $table->string('imagen', 1024);
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }
