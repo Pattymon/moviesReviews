@@ -28,9 +28,6 @@
           <p class="text-gray-700 dark:text-gray-300">
             {{ $pelicula-> descripcion }}
           </p>
-          <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-            Fecha de adición a la página: {{ $pelicula-> fechaPublicacion }}
-          </p>
         </div>
     </div>
     <div class="flex items-center p-2 bg-white rounded-lg shadow-xs dark:bg-gray-800 mt-4">

@@ -7,6 +7,17 @@ use Illuminate\Http\Request;
 
 class PeliculaController extends Controller
 {
+    private $rules;
+
+    public function __construct(){
+        $this->rules = [
+            'duracion' => 'required|integer|min:2',
+            'year' => 'required|integer|min:4',
+            'descripcion' => 'required|string|min:35',
+            'imagen' => 'required|string|max:1024',
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -36,6 +47,8 @@ class PeliculaController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate($this->rules + ['nombre' => 'required|string|min:2|max:255|unique:App\Models\Pelicula,nombre']);
+
         Pelicula::create($request->all());
         return redirect()->route('pelicula.index');
     }
@@ -71,6 +84,8 @@ class PeliculaController extends Controller
      */
     public function update(Request $request, Pelicula $pelicula)
     {
+        $request->validate($this->rules);
+
         Pelicula::where('id', $pelicula->id)->update($request->except('_token', '_method'));
         return redirect()->route('pelicula.show', $pelicula);
     }

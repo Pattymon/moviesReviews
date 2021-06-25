@@ -61,8 +61,8 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
-##Datos sobre el proyecto
+##Datos del proyecto
 
-Nombre: Movies Reviews Website
+Nombre: Movies Reviews - Moviews
 Alumna: Patricia Murillo
-Descripción: Página Web para colocar reviews sobre peliculas.
+Descripción: Página web para colocar reviews de películas
