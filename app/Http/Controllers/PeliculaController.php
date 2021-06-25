@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pelicula;
+use App\Models\Actor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -57,10 +58,10 @@ class PeliculaController extends Controller
     public function store(Request $request)
     {
         $request->validate($this->rules + ['nombre' => 'required|string|min:2|max:255|unique:App\Models\Pelicula,nombre']);
-
         $request->merge(['user_id' => Auth::id()]);
 
         Pelicula::create($request->all());
+        
         return redirect()->route('pelicula.index');
     }
 
@@ -72,7 +73,8 @@ class PeliculaController extends Controller
      */
     public function show(Pelicula $pelicula)
     {
-        return view('pelicula.peliculaShow', compact('pelicula'));
+        $actores = Actor::get();
+        return view('pelicula.peliculaShow', compact('pelicula', 'actores'));
     }
 
     /**
@@ -111,5 +113,17 @@ class PeliculaController extends Controller
     {
         $pelicula->delete();
         return redirect()->route('pelicula.index');
+    }
+
+    /**
+     * Agregar un actor a una pelicula
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Pelicula  $pelicula
+     * @return \Illuminate\Http\Response
+     */
+    public function agregarActor(Request $request, Pelicula $pelicula){
+        $pelicula->actores()->sync($request->actor_id);
+        return redirect()->route('pelicula.show', $pelicula);
     }
 }

@@ -29,6 +29,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::resource('review', ReviewController::class)->middleware('auth');
 
+Route::post('pelicula/{pelicula}/agregar-actor', [PeliculaController::class, 'agregarActor'])->name('pelicula.agregar-actor');
+Route::get('pelicula/mispeliculas', [PeliculaController::class, 'mispeliculas'])->middleware('auth');
 Route::resource('pelicula', PeliculaController::class);
-Route::get('/mispeliculas', [PeliculaController::class, 'mispeliculas'])->middleware('auth');
 

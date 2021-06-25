@@ -13,4 +13,8 @@ class Pelicula extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function actores(){
+        return $this->belongsToMany(Actor::class);
+    }
 }

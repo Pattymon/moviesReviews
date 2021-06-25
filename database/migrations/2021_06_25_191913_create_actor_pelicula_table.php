@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDirectorsTable extends Migration
+class CreateActorPeliculaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateDirectorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('directors', function (Blueprint $table) {
-            $table->id();
-            $table->string('nombre');
-            $table->string('imagen', 1024);
-            $table->text('descripcion');
+        Schema::create('actor_pelicula', function (Blueprint $table) {
+            $table->foreignId('actor_id')->constrained();
+            $table->foreignId('pelicula_id')->constrained()->onDelete('cascade');
         });
     }
 
@@ -28,6 +26,6 @@ class CreateDirectorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('directors');
+        Schema::dropIfExists('actor_pelicula');
     }
 }
