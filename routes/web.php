@@ -21,7 +21,7 @@ Route::get('inicio', function(){
 });
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('inicio');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
