@@ -74,7 +74,7 @@
           </a>
         </div>
     </div>
-    
+    @can('delete', $pelicula)
     <form action="{{ route('pelicula.destroy', $pelicula) }}" method="POST" class="mt-4">
         @csrf
         @method('DELETE')
@@ -84,6 +84,7 @@
             value="Eliminar Pelicula"
             />
     </form>
+    @endcan
 
 <!--Modal para agregar un actor-->
 

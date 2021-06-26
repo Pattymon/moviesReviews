@@ -30,6 +30,7 @@
             </p> 
         </div>
         <div class="flex items-center space-x-4 text-sm align-middle w-1/3">
+            @can('update', $pelicula)
             <a
             class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
             aria-label="Edit" href="{{ route('pelicula.edit', $pelicula) }}">            
@@ -44,6 +45,7 @@
                 ></path>
             </svg>
             </a>
+            @endcan
             <button
             class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
             aria-label="Delete">
@@ -59,12 +61,12 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
                     </path>
                 </svg>  
-            </button>-->
+            </button>
 
             <a class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple mb-2"
                 href="">
                 Ver Reviews
-            </a>
+            </a>-->
         </div>
     </div>
 @endforeach

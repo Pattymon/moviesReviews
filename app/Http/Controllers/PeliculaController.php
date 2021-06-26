@@ -7,6 +7,7 @@ use App\Models\Actor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Gate;
 
 class PeliculaController extends Controller
 {
@@ -14,6 +15,7 @@ class PeliculaController extends Controller
 
     public function __construct(){
         $this->middleware('auth')->except('peliculaIndex');
+
         $this->rules = [
             'duracion' => 'required|integer|min:2',
             'year' => 'required|integer|min:4',
@@ -58,9 +60,6 @@ class PeliculaController extends Controller
     public function store(Request $request)
     {
         $request->validate($this->rules + ['nombre' => 'required|string|min:2|max:255|unique:App\Models\Pelicula,nombre']);
-        //$request->merge(['user_id' => Auth::id()]);
-
-        //Pelicula::create($request->all());
 
         $pelicula = new Pelicula($request->all());
         $user = Auth::user();
@@ -89,6 +88,7 @@ class PeliculaController extends Controller
      */
     public function edit(Pelicula $pelicula)
     {
+        $this->authorize('update', $pelicula);
         return view('pelicula.peliculaForm', compact('pelicula'));
     }
 
@@ -115,6 +115,7 @@ class PeliculaController extends Controller
      */
     public function destroy(Pelicula $pelicula)
     {
+        //Gate::authorize('admin-peliculas');
         $pelicula->delete();
         return redirect()->route('pelicula.index');
     }
