@@ -58,9 +58,13 @@ class PeliculaController extends Controller
     public function store(Request $request)
     {
         $request->validate($this->rules + ['nombre' => 'required|string|min:2|max:255|unique:App\Models\Pelicula,nombre']);
-        $request->merge(['user_id' => Auth::id()]);
+        //$request->merge(['user_id' => Auth::id()]);
 
-        Pelicula::create($request->all());
+        //Pelicula::create($request->all());
+
+        $pelicula = new Pelicula($request->all());
+        $user = Auth::user();
+        $user->peliculas()->save($pelicula);
         
         return redirect()->route('pelicula.index');
     }
@@ -122,7 +126,15 @@ class PeliculaController extends Controller
      * @param  \App\Models\Pelicula  $pelicula
      * @return \Illuminate\Http\Response
      */
+    
     public function agregarActor(Request $request, Pelicula $pelicula){
+        $pelicula->actores()->sync($request->actor_id);
+        return redirect()->route('pelicula.show', $pelicula);
+    }
+
+    public function nuevoActor(Request $request, Pelicula $pelicula){
+        $request->validate($this->rules + ['nombre' => 'required|string|min:2|max:255|unique:App\Models\Actor,nombre']);
+        Actor::create($request->all());
         $pelicula->actores()->sync($request->actor_id);
         return redirect()->route('pelicula.show', $pelicula);
     }

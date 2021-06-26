@@ -3,10 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Actor;
+use App\Models\Pelicula;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ActorController extends Controller
 {
+    private $rules;
+
+    public function __construct(){
+        $this->middleware('auth');
+        $this->rules = [
+            'imagen' => 'required|string|max:1024',
+            'descripcion' => 'required|string|min:5',            
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -33,9 +45,12 @@ class ActorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Pelicula $pelicula)
     {
-        //
+        $request->validate($this->rules + ['nombre' => 'required|string|min:2|max:255|unique:App\Models\Actor,nombre']);
+        Actor::create($request->all());
+        $pelicula->actores()->sync($request->actor_id);
+        return redirect()->route('pelicula.show', $pelicula);
     }
 
     /**

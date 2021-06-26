@@ -38,11 +38,13 @@
             Actores
           </p>
             @foreach ($pelicula->actores as $actor)
+            <div class="flex items-center p-2 bg-white rounded-lg shadow-xs dark:bg-gray-800 mt-4">
               <img src="{{ $actor->imagen }}" width="150" class="p-2 mr-3">
               <div class="w-full">
-                <p>{{ $actor->nombre }}</p>
-                <p>{{ $actor->descripcion }}</p>
+                <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">{{ $actor->nombre }}</p>
+                <p class="text-gray-700 dark:text-gray-400 min-w-2x1 mt-4">{{ $actor->descripcion }}</p>
               </div>
+            </div>
             @endforeach
           <form action="{{ route('pelicula.agregar-actor', $pelicula) }}" method="POST">
             @csrf
@@ -71,7 +73,6 @@
                       Agregar Nuevo Actor
           </a>
         </div>
-      </div>
     </div>
     
     <form action="{{ route('pelicula.destroy', $pelicula) }}" method="POST" class="mt-4">
@@ -85,7 +86,9 @@
     </form>
 
 <!--Modal para agregar un actor-->
-<form>
+
+<form action="{{ route('pelicula.nuevo-actor', $pelicula) }}" method="POST">
+@csrf
     <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
     <!-- Modal -->
         <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0 transform translate-y-1/2" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0  transform translate-y-1/2" @click.away="closeModal" @keydown.escape="closeModal" class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl" role="dialog" id="modal">
@@ -108,14 +111,13 @@
             <label class="block text-sm">
                 <span class="text-gray-700 dark:text-gray-400">Nombre de la Película</span>
                 <input
-                    @error('nombreActor')
+                    @error('nombre')
                         class="block w-full mt-1 text-sm border-red-600 dark:text-gray-300 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
                     @enderror 
                     class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                     type="text"
-                    name="nombreActor" 
-                    id="nombreActor" 
-                    value="{{ old('nombreActor') ?? $pelicula->nombreActor ?? '' }}"
+                    name="nombre" 
+                    id="nombre" 
                     />
                 @error('nombreActor')
                     <span class="text-xs text-red-600 dark:text-red-400">
@@ -126,14 +128,13 @@
             <label class="block text-sm">
                 <span class="text-gray-700 dark:text-gray-400">Imagen (URL):</span>
                 <input
-                    @error('imagenActor')
+                    @error('imagen')
                         class="block w-full mt-1 text-sm border-red-600 dark:text-gray-300 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
                     @enderror 
                     class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                     type="text" 
-                    name="imagenActor" 
-                    id="imagenActor" 
-                    value="{{ old('imagenActor') ?? $pelicula->imagenActor ?? '' }}"
+                    name="imagen" 
+                    id="imagen" 
                     />
                 @error('imagenActor')
                     <span class="text-xs text-red-600 dark:text-red-400">
@@ -144,15 +145,15 @@
             <label class="block text-sm">
                 <span class="text-gray-700 dark:text-gray-400">Descripción de la película (coloca una breve sinopsis):</span>
                 <textarea
-                    @error('descripcionActor')
+                    @error('descripcion')
                         class="block w-full mt-1 text-sm border-red-600 dark:text-gray-300 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
                     @enderror 
                     class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                    name="descripcionActor" 
-                    rows="20" cols="40" 
-                    id="descripcionActor"
+                    name="descripcion" 
+                    rows="6" cols="15" 
+                    id="descripcion"
                 >
-                    {{ old('descripcionActor') ?? $pelicula->descripcionActor ?? '' }}
+                    {{ old('descripcionActor') ?? $actor->descripcionActor ?? '' }}
                 </textarea>
                 @error('descripcionActor')
                     <span class="text-xs text-red-600 dark:text-red-400">
@@ -166,10 +167,11 @@
           href="#">
             Cancelar
           </a>
-          <a class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-          href="#">
-            Guardar
-          </a>
+          <input
+            class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+            type="submit" 
+            value="Guardar" 
+            />
         </footer>
       </div>
     </div>
