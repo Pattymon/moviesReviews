@@ -22,11 +22,10 @@ class ReviewFactory extends Factory
     public function definition()
     {
         return [
-            'valoracion' => $this->faker->numberBetween(1,10),
-            'fechaPublicacion' => $this->faker->dateTimeThisMonth(),
-            'resena' => $this->faker->text(),
             'user_id' => $this->faker->numberBetween(1,2),
             'pelicula_id' => $this->faker->numberBetween(1,7),
+            'valoracion' => $this->faker->numberBetween(1,10),
+            'resena' => $this->faker->text(),
         ];
     }
 }

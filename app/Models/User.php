@@ -11,7 +11,7 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail 
 {
     use HasApiTokens;
     use HasFactory;
@@ -61,5 +61,10 @@ class User extends Authenticatable
 
     public function peliculas(){
         return $this->hasMany(Pelicula::class);
+    }
+
+    public function reviews() : HasMany
+    {
+        return $this->hasMany(Review::class);
     }
 }

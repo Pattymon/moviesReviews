@@ -15,7 +15,6 @@ class ReviewController extends Controller
     public function index()
     {
         $reviews = Review::all();
-        //$reviews = Review::where('idPelicula', '2')->get();
         return view('review.reviewIndex', compact('reviews'));
     }
 
@@ -48,7 +47,8 @@ class ReviewController extends Controller
      */
     public function show(Review $review)
     {
-        return view('review.reviewShow');
+        $reviews = Auth::user()->reviews()->get(); //listado de solo ese usuario 
+        return view('pelicula.reviewShow', compact('reviews'));
     }
 
     /**
