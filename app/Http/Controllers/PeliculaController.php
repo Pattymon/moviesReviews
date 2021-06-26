@@ -29,13 +29,13 @@ class PeliculaController extends Controller
      */
     public function index()
     {
-        $peliculas = Pelicula::get();
+        $peliculas = Pelicula::with('user')->get();
         return view('pelicula.peliculaIndex', compact('peliculas'));
     }
 
     public function mispeliculas()
     {
-        $peliculas = Auth::user()->peliculas()->get(); //listado de solo ese usuario 
+        $peliculas = Auth::user()->peliculas()->with('user')->get(); //listado de solo ese usuario 
         return view('pelicula.peliculaMisPeliculas', compact('peliculas'));
     }
 
