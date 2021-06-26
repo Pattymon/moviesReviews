@@ -67,7 +67,7 @@
                 @enderror
               </label>
               <label class="block text-sm">
-                <span class="text-gray-700 dark:text-gray-400">{{ old('email') ?? __('Email') }}</span>
+                <span class="text-gray-700 dark:text-gray-400">{{ __('Email') }}</span>
                 <input
                   type="email"
                   @error('email')
