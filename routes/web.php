@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArchivoController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\PeliculaController;
 use App\Http\Controllers\ActorController;
@@ -56,3 +57,5 @@ Route::get('review/nuevo/{pelicula}', [ReviewController::class, 'nuevo'])->name(
 Route::post('review/almacenar/{review}/{pelicula}', [ReviewController::class, 'almacenar'])->name('review.almacenar');
 Route::resource('review', ReviewController::class)->middleware('auth');
 
+Route::get('archivo/descargar/{archivo}', [ArchivoController::class, 'descargar'])->name('archivo.descargar');
+Route::resource('archivo', ArchivoController::class);
