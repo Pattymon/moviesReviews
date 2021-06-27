@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Gate;
 class PeliculaController extends Controller
 {
     private $rules;
+    private $rulesActor;
 
     public function __construct(){
         $this->middleware('auth')->except('peliculaIndex');
@@ -20,6 +21,11 @@ class PeliculaController extends Controller
             'duracion' => 'required|integer|min:2',
             'year' => 'required|integer|min:4',
             'descripcion' => 'required|string|min:35',
+            'imagen' => 'required|string|max:1024',
+        ];
+
+        $this->rulesActor = [
+            'descripcion' => 'required|string|min:5',
             'imagen' => 'required|string|max:1024',
         ];
     }
@@ -134,7 +140,7 @@ class PeliculaController extends Controller
     }
 
     public function nuevoActor(Request $request, Pelicula $pelicula){
-        $request->validate($this->rules + ['nombre' => 'required|string|min:2|max:255|unique:App\Models\Actor,nombre']);
+        $request->validate($this->rulesActor + ['nombre' => 'required|string|min:2|max:255|unique:App\Models\Actor,nombre']);
         Actor::create($request->all());
         $pelicula->actores()->sync($request->actor_id);
         return redirect()->route('pelicula.show', $pelicula);
