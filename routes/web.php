@@ -51,5 +51,8 @@ Route::resource('pelicula', PeliculaController::class)->middleware('verified');
 
 Route::resource('actor', ActorController::class)->middleware('auth');
 
+Route::get('review/general/{pelicula}', [ReviewController::class, 'general'])->name('review.general');
+Route::get('review/nuevo/{pelicula}', [ReviewController::class, 'nuevo'])->name('review.nuevo');
+Route::post('review/almacenar/{review}/{pelicula}', [ReviewController::class, 'almacenar'])->name('review.almacenar');
 Route::resource('review', ReviewController::class)->middleware('auth');
 

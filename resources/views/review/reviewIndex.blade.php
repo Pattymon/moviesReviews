@@ -1,130 +1,61 @@
-@extends('layouts.temp')
+@extends('layouts.principal')
 @section('contenido')
-    <h1>Listado de Reviews</h1>
-<!--
-    <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
-    Peliculas 
-    </h4>
-<div class="w-full overflow-hidden rounded-lg shadow-xs">
-<div class="w-full overflow-x-auto">
-  <table class="w-full whitespace-no-wrap">
-    <thead>
-      <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-            <th class="px-4 py-3">Imagen</th>
-            <th class="px-4 py-3">Nombre</th>
-            <th class="px-4 py-3">Duración en minutos</th>
-            <th class="px-4 py-3">Año</th>
-            <th class="px-4 py-3">Descripción</th>
-            <th class="px-4 py-3">Fecha de publicación</th>
-            <th class="px-4 py-3">Acciones</th>
-      </tr>
-    </thead>
-    <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-        @foreach($peliculas as $pelicula)
-        <tr class="text-gray-700 dark:text-gray-400">
-            <td class="px-4 py-3 text-sm">            
-                <img src="{{ $pelicula-> imagen }}" width="150" height="200">
-            </td>
-            <td class="px-4 py-3">
-            <div class="flex items-center text-sm">
-                <a href="{{ route('pelicula.show', $pelicula->id) }}">{{ $pelicula-> nombre }}</a> 
-            </div>
+    <h2
+        class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+        Listado de Reviews
+    </h2>
 
-            </td>
-            <td class="px-4 py-3 text-sm">
-                {{ $pelicula-> duracion }}
-            </td>
-            <td class="px-4 py-3 text-sm">
-                {{ $pelicula-> year }} 
-            </td>
-            <td class="px-4 py-3 text-sm">
-                <div >                
-                    <p>
-                        {{ $pelicula-> descripcion }}
-                    </p> 
-                </div>                   
-            </td>
-            <td class="px-4 py-3 text-sm">
-                {{ $pelicula-> fechaPublicacion }}
-            </td>
-            <td class="px-4 py-3">
-            <div class="flex items-center space-x-4 text-sm">
-                <a
-                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                aria-label="Edit" href="{{ route('pelicula.edit', $pelicula) }}">            
-                <svg
-                    class="w-5 h-5"
-                    aria-hidden="true"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                >
-                    <path
-                    d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
-                    ></path>
-                </svg>
+    @if(isset($pelicula))
+        <div>
+            <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
+                <a class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+                    href="{{ route('review.nuevo', $pelicula) }}">
+                    Agregar Review
                 </a>
-                <button
-                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                aria-label="Delete"
-                >
-                <svg
-                    class="w-5 h-5"
-                    aria-hidden="true"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                >
-                    <path
-                    fill-rule="evenodd"
-                    d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                    clip-rule="evenodd"
-                    ></path>
-                </svg>
-                </button>
-            </div>
-            </td> 
-            </td>
-      </tr>
-      @endforeach
-    </tbody>
-  </table>
-</div>
-</div>
--->
-    <table border ="1">
-        <thead>
-            <th>ID</th>
-            <th>ID User</th>
-            <th>ID Pelicula</th>
-            <th>Valoracion</th>
-            <th>Fecha de Publicacion</th>
-            <th>Reseña</th>
-        </thead>
-        <tbody>
-            @foreach($reviews as $review)
-                <tr>
-                    <td>{{ $review-> id }}</td>
-                    <td>{{ $review-> idUser }}</td>
-                    <td>{{ $review-> idPelicula }}</td>
-                    <td>{{ $review-> valoracion }}</td>
-                    <td>{{ $review-> fechaPublicacion }}</td>
-                    <td>{{ $review-> resena }}</td>                    
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+            </h4>
+        </div>
+    @endif
+
+@foreach($reviews as $review)
+    <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 mt-4">
+        <div class="w-full">
+            <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                @foreach ($users as $user)
+                    @if ($review->user_id == $user->id)
+                        {{ $user->name }}
+                    @endif
+                @endforeach
+            </p>
+            <p class="flex mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            </svg>
+               -> {{ $review->valoracion }} 
+            </p>
+            <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+                @foreach ($peliculas as $pelicula)
+                    @if ($review->pelicula_id == $pelicula->id)
+                        {{ $pelicula->nombre }}
+                    @endif
+                @endforeach
+            </p>
+            <p class="text-gray-700 dark:text-gray-300 min-w-2x1 mt-4">
+            {{ $review-> resena }}
+            </p> 
+        </div>
+        <div class="flex items-center space-x-4 text-sm align-middle w-1/3">
+            @can('update', $review)
+                <form action="{{ route('review.destroy', $review) }}" method="POST" class="mt-4">
+                @csrf
+                @method('DELETE')
+                <input
+                    class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+                    type="submit" 
+                    value="Eliminar Review"
+                    />
+                </form>
+            @endcan
+        </div>
+    </div>
+@endforeach
 @endsection
-<!--
-    
-    <svg
-        class="w-5 h-5"
-        aria-hidden="true"
-        fill="currentColor"
-        viewBox="0 0 20 20"
-    >
-        <path
-        fill-rule="evenodd"
-        d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-        clip-rule="evenodd"
-        ></path>
-    </svg>
--->

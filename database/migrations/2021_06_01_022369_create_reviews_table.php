@@ -17,7 +17,7 @@ class CreateReviewsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('pelicula_id')->constrained();
-            $table->integer('valoracion');
+            $table->float('valoracion', 2, 2);
             $table->text('resena'); 
             $table->timestamps();
         });

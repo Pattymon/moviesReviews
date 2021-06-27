@@ -18,7 +18,7 @@ class Pelicula extends Model
         return $this->belongsToMany(Actor::class);
     }
 
-    public function reviews() : HasMany
+    public function reviews()
     {
         return $this->hasMany(Review::class);
     }

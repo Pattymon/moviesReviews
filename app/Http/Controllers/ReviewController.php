@@ -3,10 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Review;
+use App\Models\Pelicula;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
+    private $rules;
+
+    public function __construct(){
+        $this->middleware('auth')->except('peliculaIndex');
+
+        $this->rules = [
+            'resena' => 'required|string|min:5',
+            'valoracion' => 'required|integer|min:1',
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +28,17 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        $reviews = Review::all();
-        return view('review.reviewIndex', compact('reviews'));
+        $peliculas = Pelicula::all();
+        $users = User::all();
+        $reviews = Auth::user()->reviews()->get(); //listado de solo ese usuario 
+        return view('review.reviewIndex', compact('reviews', 'users', 'peliculas'));
+    }
+
+    public function general(Pelicula $pelicula){
+        $reviews = $pelicula->reviews()->get(); //listado de solo esa pelicula
+        $peliculas = Pelicula::all();
+        $users = User::all();
+        return view('review.reviewIndex', compact('reviews', 'users', 'peliculas', 'pelicula'));
     }
 
     /**
@@ -25,7 +48,11 @@ class ReviewController extends Controller
      */
     public function create()
     {
-        return view('review.reviewForm');
+        //
+    }
+
+    public function nuevo(Pelicula $pelicula){
+        return view('review.reviewForm', compact('pelicula'));
     }
 
     /**
@@ -36,7 +63,24 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate($this->rules);
+        $request->merge([
+            'user_id' => Auth::id(),
+            'pelicula_id' => $request->pelicula_id,
+        ]);
+        Review::create($request->all());
+        return redirect()->route('pelicula.index');
+    }
+
+    public function almacenar(Request $request, Pelicula $pelicula)
+    {       
+        $request->validate($this->rules);
+        $request->merge([
+            'user_id' => Auth::id(),
+            'pelicula_id' => $pelicula->id,
+        ]);
+        Review::create($request->all());
+        return redirect()->route('pelicula.index');
     }
 
     /**
@@ -47,8 +91,7 @@ class ReviewController extends Controller
      */
     public function show(Review $review)
     {
-        $reviews = Auth::user()->reviews()->get(); //listado de solo ese usuario 
-        return view('pelicula.reviewShow', compact('reviews'));
+        //
     }
 
     /**
@@ -82,6 +125,7 @@ class ReviewController extends Controller
      */
     public function destroy(Review $review)
     {
-        //
+        $review->delete();
+        return redirect()->route('pelicula.index');
     }
 }
