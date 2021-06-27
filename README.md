@@ -61,8 +61,19 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
-##Datos del proyecto
+## Datos del proyecto
 
-Nombre: Movies Reviews - Moviews
+Nombre del proyecto: Movies Reviews - Moviews
+
 Alumna: Patricia Murillo
-Descripción: Página web para colocar reviews de películas
+
+Descripción:
+ Moviews es una pagina web donde los usuarios podran agregar reviews a películas que hayan visto, si la película no esta registrada en la página el usuario puede hacerlo, de la misma manera puede colocar actores a dichas peliculas y en caso de que el actor no este puede agregarlo.
+Como nota: 
+* Solo el administrador puede borrar las peliculas y editar todo.
+* Los usuarios pueden agregar películas y reviews, y editar solo las que fueron agregadas por dicho usuario.
+* Se cuentan con pantallas en el sidebar para:
+    * Ver las películas registradas en la plataforma.
+    * Ver las películas que agrego el usuario en sesion.
+    * Ver los reviews que ha puesto el usuario en sesion.
+    * Ver, cargar y descargar archivos.
